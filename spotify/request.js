@@ -63,6 +63,7 @@ function parseJSON(xmlhttp){
             var track = {
                 name : jc.track_name,
                 artistName: jc.artist_name,
+                url: jc.track_url,
                 art : jc.artwork_url,
                 streams : jc.num_streams
             };
@@ -141,6 +142,16 @@ function showSong(index){
 
     var container = document.createElement("div");
   
+  	var player = document.createElement("div");
+  	var urlString = tracks[index].url;
+  	var urlArray = [];
+  	urlArray = urlString.split("/")
+  	var embedString = "https://embed.spotify.com/?uri=spotify:track:" + urlArray[4];
+  	var iframe  = "<iframe src="+"'"+embedString+"'"+"width='300' height='380' frameborder='0' allowtransparency='true'></iframe>";
+ 	//iframe = '<iframe src="https://embed.spotify.com/?uri=spotify%3Atrack%3A4th1RQAelzqgY7wL53UGQt" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>'
+ 	player.innerHTML = iframe;
+ 	player.style.float="left";
+ 	
     var details = document.createElement("div");
 
     var songName = document.createElement("h2");
@@ -157,19 +168,13 @@ function showSong(index){
     details.appendChild(songStreams);
     details.style.paddingLeft = "20%";
 
-    var albumArt = document.createElement("img");
-    albumArt.src=tracks[index].art;
-    albumArt.style.float="left";
-    var length = 0.2 *document.body.clientWidth;
-    albumArt.style.width=length+"px";
-    albumArt.style.height=length+"px";
-    albumArt.style.margin="0px 50px";
+  
 
     container.style.marginTop="50px";
 
-   
-    container.appendChild(albumArt);
+   	container.appendChild(player);
     container.appendChild(details);
+    
     
     setTimeout(function(){
      overlay.appendChild(cross);
