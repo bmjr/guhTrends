@@ -4,63 +4,60 @@ var dates = [];
 var datecounter = 0; //0 == latest
 
 function initialise(){
-	requestData("http://charts.spotify.com/api/tracks/most_streamed/global/weekly", loadweeks);
+	var script = document.createElement('script');
+	script.src = 'http://charts.spotify.com/api/tracks/most_streamed/global/weekly?callback=loadWeeks';
+	document.head.appendChild(script);
+	
+	var script = document.createElement('script');
+	script.src = 'http://charts.spotify.com/api/tracks/most_streamed/global/weekly/latest?callback=parseJSON';
+	document.head.appendChild(script);
+		
+	
 	var prev = document.getElementById("prev");
 		prev.onclick = function(){
+		alert(dates.length);
 			if(datecounter<dates.length-1){
 				datecounter++;
-				requestData("http://charts.spotify.com/api/tracks/most_streamed/global/weekly/"+dates[datecounter], parseJSON);
+				var script = document.createElement('script');
+				script.src = "http://charts.spotify.com/api/tracks/most_streamed/global/weekly/"+dates[datecounter]+"?callback=parseJSON";
+				document.getElementsByTagName('head')[0].appendChild(script);
 			}
 			}
 	var next = document.getElementById("next");
 		next.onclick = function(){
 			if(datecounter>0){
 				datecounter--;
-				requestData("http://charts.spotify.com/api/tracks/most_streamed/global/weekly/"+dates[datecounter], parseJSON);
+				var script = document.createElement('script');
+				script.src = "http://charts.spotify.com/api/tracks/most_streamed/global/weekly/"+dates[datecounter]+"?callback=parseJSON";
+				document.head.appendChild(script);
 			}
 		}
 	var home = document.getElementById("home");
 		home.style.cursor = "pointer";
 		home.onclick = function(){
 			datecounter = 0;
-			requestData("http://charts.spotify.com/api/tracks/most_streamed/global/weekly/"+dates[datecounter], parseJSON);
+			var script = document.createElement('script');
+			script.src = "http://charts.spotify.com/api/tracks/most_streamed/global/weekly/"+dates[datecounter]+"?callback=parseJSON";
+			document.head.appendChild(script);
 		}
 }
 
-//standard function for requesting data
-function requestData(url, callBack)
-{
-	// Create a new XMLHttpRequest object
-	var xmlhttp = new XMLHttpRequest();
-	xmlhttp.onreadystatechange = function() {
-		if (xmlhttp.readyState == 4) {
-			callBack(xmlhttp);
-		}
-	}
-	// Open the object with the filename
-	xmlhttp.open("GET", url, true);
-	// Send the request
-	xmlhttp.send(null);
-}
-
-function loadweeks(xmlhttp){
-	var jsonDoc = JSON.parse(xmlhttp.responseText);
+function loadWeeks(jsonDoc){
+alert("asdf");
+console.log(jsonDoc);
 	for(var i=0; i<jsonDoc.length; i++){
 		dates.push(jsonDoc[i]);
 	}
-	requestData("http://charts.spotify.com/api/tracks/most_streamed/global/weekly/latest", parseJSON);
 }
 
 
 
-function parseJSON(xmlhttp){
+function parseJSON(jsonDoc){
 		//reset
 		document.getElementById("main").innerHTML = '<div id="overlay"></div>';
 		totalStreams = 0;
 		tracks = [];
 
-        // Extract the list of teams from JSON
-        var jsonDoc = JSON.parse(xmlhttp.responseText);
         var jsonContents = jsonDoc.tracks;
        //get info about each track
         for (var i = 0; i < 50; i++) {
@@ -71,7 +68,9 @@ function parseJSON(xmlhttp){
                 artistName: jc.artist_name,
                 url: jc.track_url,
                 art : jc.artwork_url,
-                streams : jc.num_streams
+                streams : jc.num_streams,
+                album : jc.album_name,
+                rank : i
             };
 
             //add to the global list of teams
