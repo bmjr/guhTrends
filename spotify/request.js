@@ -3,7 +3,7 @@ var totalStreams = 0;
 
 
 function initialise(){
-	requestData("http://charts.spotify.com/api/tracks/most_streamed/global/daily/latest", parseJSON);
+	requestData("http://charts.spotify.com/api/tracks/most_streamed/global/weekly/latest", parseJSON);
 }
 
 //standard function for requesting data
