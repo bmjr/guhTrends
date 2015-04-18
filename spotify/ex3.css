@@ -1,0 +1,57 @@
+/* Set the background of the whole page */
+body{
+    font-family: lmroman12,serif;
+    font-size:16pt;
+    background-color:#aaffaa;
+}
+
+/* Main content */
+div#main{
+    background-color:#ffffff;
+    padding:10px;
+}
+
+/* The main heading */
+h1{
+    font-size: 1.5em;
+    font-family: arial,sans;
+    font-weight: bold;
+}
+
+/* Second-level headings */
+h2{
+    font-size: 1.2em;
+    font-family: arial,sans;
+    font-weight: bold;
+}
+
+/* Third-level headings */
+h3{
+    font-size: 1.0em;
+    font-family: arial,sans;
+    font-weight: bold;
+}
+
+/* Links */
+a{
+    text-decoration: none;
+    color: #0000ff;
+}
+
+/* Menu */
+
+div#header ul{
+    margin-bottom:0px;
+}
+
+div#header ul li{
+    display:inline;
+    font-family:arial,sans;
+    font-weight:bold;
+    background-color:#ffffff;
+    padding:5px;
+}
+
+div#header ul a{
+    color:inherit;
+}

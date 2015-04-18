@@ -1,0 +1,117 @@
+/* Set the background of the whole page */
+body{
+    font-family: lmroman12,serif;
+    background:black;
+}
+
+div#banner{
+  
+    padding: 2px;
+    margin-top:-10px;
+    margin-left:-10px;
+    padding-left:20px;
+    background: white;
+    border-bottom: thin solid #CCCCCC;
+    text-shadow: 1px 1px 4px #CCCCCC;
+    width:110%;
+    color:black;
+    font-size:30px;
+
+}
+
+#main{
+    font-family: sans-serif;
+    color:white;
+}
+
+
+#cssmenu {
+  background: #333;
+  padding-left:-10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 12em;
+  height:100%;
+}
+#cssmenu li {
+  font: 67.5% "Lucida Sans Unicode", "Bitstream Vera Sans", "Trebuchet Unicode MS", "Lucida Grande", Verdana, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#cssmenu a {
+  background: #333;
+  border-bottom: 1px solid #393939;
+  color: #ccc;
+  display: block;
+  margin: 0;
+  padding: 8px 12px;
+  text-decoration: none;
+  font-weight: normal;
+}
+#cssmenu a:hover {
+  background: #2580a2 url("images/hover.gif") left center no-repeat;
+  color: #fff;
+  padding-bottom: 8px;
+}
+
+.transparent{
+    position: absolute;
+    background: transparent;
+    top: 0;
+    left: 0;
+
+
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+.transparentHover{
+    background: rgba(255,255,255,0.4);
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+}
+
+#overlay{
+    position: absolute;
+    background: transparent;
+    top: 34;
+    left: 0;
+    height:100%;
+    width:100%;
+
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+}
+#overlayfront{
+  position: absolute;
+    background: rgba(0,0,0,0.95);
+    z-index: 1;
+    top: 34;
+    left: 0;
+    height:100%;
+    width:100%;
+
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+
+}
+
