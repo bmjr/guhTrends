@@ -7,6 +7,7 @@ Created on Sat Apr 18 02:10:34 2015
 
 import urllib
 import json
+import matplotlib.pyplot as plt
 
 
 dates = urllib.request.urlopen('http://charts.spotify.com/api/tracks/most_streamed/global/weekly/')
@@ -38,5 +39,15 @@ for i in range(1,99):
         else:
             new_list = [weeklydict[dataDates[i]][j][0], weeklydict[dataDates[i]][j][1], dataDates[i]]
             urldict[str(weeklydict[dataDates[i]][j][2])].append(new_list)
+
+
+#Output the data as a JSON
+test_url = '''https://play.spotify.com/track/2iS2s9oYpEmUzrAHPmqBHy''' #incoming track
+x= list()
+y = list()
+for i in range(len(urldict[test_url])):
+    x.append(urldict[test_url][i][2])
+    y.append(urldict[test_url][i][1])
+
         
 
