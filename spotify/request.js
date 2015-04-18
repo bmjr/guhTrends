@@ -3,7 +3,7 @@ var totalStreams = 0;
 
 
 function initialise(){
-	requestData("tracks2.json", parseJSON);
+	requestData("http://charts.spotify.com/api/tracks/most_streamed/global/daily/latest", parseJSON);
 }
 
 //standard function for requesting data
@@ -17,7 +17,7 @@ function requestData(url, callBack)
 		}
 	}
 	// Open the object with the filename
-	xmlhttp.open("POST", url, true);
+	xmlhttp.open("GET", url, true);
 	// Send the request
 	xmlhttp.send(null);
 }
@@ -84,9 +84,6 @@ function parseJSON(xmlhttp){
         var pckry = new Packery('#main', {
             "itemSelector": ".item",
 
-
-
-
         });
 
     }
@@ -108,8 +105,8 @@ function showSong(index){
     cross.style.float="right";
     cross.innerHTML = '<i class="fa fa-times"></i>';
     cross.style.color="white";
-    cross.style.fontSize="30px";
-    cross.style.margin="10px 10px";
+    cross.style.fontSize="50px";
+    cross.style.margin="10px 20px";
     cross.onclick = function(){hideSong()};
 
     var container = document.createElement("div");
@@ -140,10 +137,13 @@ function showSong(index){
 
     container.style.marginTop="50px";
 
-    overlay.appendChild(cross);
+   
     container.appendChild(albumArt);
     container.appendChild(details);
-    overlay.appendChild(container);
+    
+    setTimeout(function(){
+     overlay.appendChild(cross);
+    overlay.appendChild(container);} , 500);
 
     
 
