@@ -19,6 +19,12 @@ function initialise(){
 				requestData("http://charts.spotify.com/api/tracks/most_streamed/global/weekly/"+dates[datecounter], parseJSON);
 			}
 		}
+	var home = document.getElementById("home");
+		home.style.cursor = "pointer";
+		home.onclick = function(){
+			datecounter = 0;
+			requestData("http://charts.spotify.com/api/tracks/most_streamed/global/weekly/"+dates[datecounter], parseJSON);
+		}
 }
 
 //standard function for requesting data
@@ -151,6 +157,7 @@ function showSong(index){
  	//iframe = '<iframe src="https://embed.spotify.com/?uri=spotify%3Atrack%3A4th1RQAelzqgY7wL53UGQt" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>'
  	player.innerHTML = iframe;
  	player.style.float="left";
+ 	player.style.margin = "0px 10px";
  	
     var details = document.createElement("div");
 
