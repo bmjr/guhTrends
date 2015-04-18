@@ -147,7 +147,7 @@ function showSong(index){
   	var urlArray = [];
   	urlArray = urlString.split("/")
   	var embedString = "https://embed.spotify.com/?uri=spotify:track:" + urlArray[4];
-  	var iframe  = "<iframe src="+"'"+embedString+"'"+'width="300" height="380" frameborder="0" allowtransparency="true"></iframe>'
+  	var iframe  = "<iframe src="+"'"+embedString+"'"+"width='300' height='380' frameborder='0' allowtransparency='true'></iframe>";
  	//iframe = '<iframe src="https://embed.spotify.com/?uri=spotify%3Atrack%3A4th1RQAelzqgY7wL53UGQt" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>'
  	player.innerHTML = iframe;
  	player.style.float="left";
