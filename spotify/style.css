@@ -20,6 +20,11 @@ div#banner{
     font-size:30px;
 
 }
+#buttons {
+	display:inline-block;
+	margin-left:60%;
+}
+
 
 #main{
     font-family: sans-serif;
