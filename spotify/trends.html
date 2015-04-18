@@ -7,20 +7,38 @@
 		<link type="text/css" rel="stylesheet" href="style.css"/>
 		<script type="text/javascript" src="packery.pkgd.min.js"></script>
 		<script type="text/javascript" src="request.js"></script>
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script type="text/javascript" src="chart.js"></script>
 	
 	</head>	
 	<body onload="initialise();">
 
-
+	<div id="chart_div">
+		
+		
+	</div>
 
 	<div id="banner">
-		<i class="fa fa-spotify" style="display:inline-block">&nbspSpotify trends</i>
+		<div style="display:inline">
+			<i class="fa fa-spotify"></i>&nbsp&nbspTrendify
+		</div>
 		<div id="buttons">
-			<button>Prev</button>
-			<button>Next</button>
+			<span id="prev">
+				<i class="fa fa-caret-square-o-left"></i>
+				Previous Week
+			</span>
+			&nbsp
+			<span id="next">
+				Next Week
+				<i class="fa fa-caret-square-o-right"></i>
+			</span>
 		</div>
 	</div> 
 	<div id="main">
+	<div id="chart_div">
+		
+		
+	</div>
  		<div id="overlay">
  		</div>
 

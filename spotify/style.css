@@ -21,8 +21,11 @@ div#banner{
 
 }
 #buttons {
-	display:inline-block;
-	margin-left:60%;
+	float:right;
+	margin-right:12%;
+	color:black;
+	display:inline;
+	cursor:pointer;
 }
 
 
@@ -84,7 +87,7 @@ div#banner{
     position: absolute;
     top: 0;
     left: 0;
-
+	cursor:pointer;
     -webkit-transition: all 1s ease;
     -moz-transition: all 1s ease;
     -o-transition: all 1s ease;

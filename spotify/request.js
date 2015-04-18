@@ -1,9 +1,24 @@
 var tracks = [];
 var totalStreams = 0;
-
+var dates = [];
+var datecounter = 0; //0 == latest
 
 function initialise(){
-	requestData("http://charts.spotify.com/api/tracks/most_streamed/global/weekly/latest", parseJSON);
+	requestData("http://charts.spotify.com/api/tracks/most_streamed/global/weekly", loadweeks);
+	var prev = document.getElementById("prev");
+		prev.onclick = function(){
+			if(datecounter<dates.length-1){
+				datecounter++;
+				requestData("http://charts.spotify.com/api/tracks/most_streamed/global/weekly/"+dates[datecounter], parseJSON);
+			}
+			}
+	var next = document.getElementById("next");
+		next.onclick = function(){
+			if(datecounter>0){
+				datecounter--;
+				requestData("http://charts.spotify.com/api/tracks/most_streamed/global/weekly/"+dates[datecounter], parseJSON);
+			}
+		}
 }
 
 //standard function for requesting data
@@ -22,8 +37,22 @@ function requestData(url, callBack)
 	xmlhttp.send(null);
 }
 
+function loadweeks(xmlhttp){
+	var jsonDoc = JSON.parse(xmlhttp.responseText);
+	for(var i=0; i<jsonDoc.length; i++){
+		dates.push(jsonDoc[i]);
+	}
+	requestData("http://charts.spotify.com/api/tracks/most_streamed/global/weekly/latest", parseJSON);
+}
+
+
 
 function parseJSON(xmlhttp){
+		//reset
+		document.getElementById("main").innerHTML = '<div id="overlay"></div>';
+		totalStreams = 0;
+		tracks = [];
+
         // Extract the list of teams from JSON
         var jsonDoc = JSON.parse(xmlhttp.responseText);
         var jsonContents = jsonDoc.tracks;
@@ -45,7 +74,7 @@ function parseJSON(xmlhttp){
         }
 
         sortAlpha();
-
+		
         for (var i = 0; i < 50; i++) {
 
         var elem = document.createElement("div");
@@ -107,6 +136,7 @@ function showSong(index){
     cross.style.color="white";
     cross.style.fontSize="50px";
     cross.style.margin="10px 20px";
+    cross.style.cursor="pointer";
     cross.onclick = function(){hideSong()};
 
     var container = document.createElement("div");
