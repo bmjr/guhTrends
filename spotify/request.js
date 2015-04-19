@@ -1,13 +1,14 @@
 var tracks = [];
 var totalStreams = 0;
 var dates = [];
+var urlDoc = [];
 var datecounter = 0; //0 == latest
 var hitRank;
 
 
 function initialise(){
-
-	requestData("urlData.json", loadUrl);
+    alert("start");
+	requestData("test.json", loadUrl);
 
 	var script = document.createElement('script');
 	script.src = 'http://charts.spotify.com/api/tracks/most_streamed/global/weekly/?callback=loadWeeks';
@@ -47,7 +48,6 @@ function initialise(){
 }
 
 function loadWeeks(jsonDoc){
-alert("asdf");
 console.log(jsonDoc);
 	for(var i=0; i<jsonDoc.length; i++){
 		dates.push(jsonDoc[i]);
@@ -55,21 +55,9 @@ console.log(jsonDoc);
 }
 
 function loadUrl(xmlhttp){
-	alert("g");
-	var jsonDoc = xmlhttp.responseText;
-	alert(jsonDoc);
-	for (var i = 0; i < jsonDoc.length; i++) {
-			alert(jsonDoc[i]);
-            var track = {
-                streams: jsonDoc[i][1],
-                date: jsonDoc[i][2]
-            };
-			alert(1);
-            //add to the global list of teams
-            //tracks.push(track);
-            //totalStreams = totalStreams + track.streams;
-            
-        }
+    alert("before");
+	urlDoc = JSON.parse(xmlhttp.responseText);
+    alert(urlDoc.main[0].dates[0].numstreams);
 }
 
 function requestData(url, callBack)
@@ -246,6 +234,10 @@ function showSong(index){
 	overlay.appendChild(con);
 
 	//urlString
+    alert(urlDoc);
+    for (var i = 0; i < urlDoc.length; i++) {
+        }
+
 
     var chart = new CanvasJS.Chart(con,
     {
