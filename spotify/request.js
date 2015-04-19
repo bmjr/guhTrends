@@ -2,6 +2,8 @@ var tracks = [];
 var totalStreams = 0;
 var dates = [];
 var datecounter = 0; //0 == latest
+var hitRank;
+
 
 function initialise(){
 	var script = document.createElement('script');
@@ -62,6 +64,7 @@ function parseJSON(jsonDoc){
        //get info about each track
         for (var i = 0; i < 50; i++) {
             var jc = jsonContents[i];
+            hitRank = i;
             //create an object storing this info
             var track = {
                 name : jc.track_name,
@@ -70,7 +73,7 @@ function parseJSON(jsonDoc){
                 art : jc.artwork_url,
                 streams : jc.num_streams,
                 album : jc.album_name,
-                rank : i
+                rank : i + 1
             };
 
             //add to the global list of teams
@@ -156,7 +159,15 @@ function showSong(index){
  	//iframe = '<iframe src="https://embed.spotify.com/?uri=spotify%3Atrack%3A4th1RQAelzqgY7wL53UGQt" width="300" height="380" frameborder="0" allowtransparency="true"></iframe>'
  	player.innerHTML = iframe;
  	player.style.float="left";
- 	player.style.margin = "0px 10px";
+ 	player.style.marginLeft = "25px";
+ 	
+ 	    var rank = document.createElement("div");
+    rank.className = "numberCircle";
+    rank.innerHTML = tracks[index].rank;
+    rank.style.float = "left";
+    rank.style.marginLeft = "-10px";
+    rank.zIndex = "1";
+ 	
  	
     var details = document.createElement("div");
 
@@ -169,21 +180,25 @@ function showSong(index){
     var songStreams = document.createElement("h3");
     songStreams.innerHTML = tracks[index].streams + " streams";
 
+	
     details.appendChild(songName);
     details.appendChild(artist);
     details.appendChild(songStreams);
-    details.style.paddingLeft = "20%";
-
-  
+    details.style.marginLeft = "10px";
+    details.style.float = "left";
+	details.style.background = "#fff";
+	details.style.color= "#666";
+	details.style.padding = "0px 10px";
+	details.style.marginTop = "25px";
+	details.style.marginLeft = "20px";
 
     container.style.marginTop="50px";
-
    	container.appendChild(player);
     container.appendChild(details);
-    
+       container.appendChild(rank);
     
     setTimeout(function(){
-     overlay.appendChild(cross);
+    overlay.appendChild(cross);
     overlay.appendChild(container);} , 500);
 
     
