@@ -18,6 +18,7 @@ div#banner{
     width:110%;
     color:black;
     font-size:30px;
+    font-weight:bold;
 
 }
 #buttons {
@@ -26,6 +27,8 @@ div#banner{
 	color:black;
 	display:inline;
 	cursor:pointer;
+	font-weight:normal;
+	font-size:0.7em;
 }
 
 

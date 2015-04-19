@@ -1,18 +1,16 @@
 var tracks = [];
 var totalStreams = 0;
 var dates = [];
-var urlDoc = [];
+var urlDoc;
 var datecounter = 0; //0 == latest
 var hitRank;
+var lookup = [];
 
 
 function initialise(){
-    alert("start");
-	requestData("test.json", loadUrl);
+	requestData("finalurldata.json", loadUrl);
 
-	var script = document.createElement('script');
-	script.src = 'http://charts.spotify.com/api/tracks/most_streamed/global/weekly/?callback=loadWeeks';
-	document.head.appendChild(script);
+	requestData("http://charts.spotify.com/api/tracks/most_streamed/global/weekly/", loadWeeks);
 	
 	var script = document.createElement('script');
 	script.src = 'http://charts.spotify.com/api/tracks/most_streamed/global/weekly/latest?callback=parseJSON';
@@ -48,16 +46,15 @@ function initialise(){
 }
 
 function loadWeeks(jsonDoc){
-console.log(jsonDoc);
+	console.log(jsonDoc);
+	jsonDoc = JSON.parse(jsonDoc);
 	for(var i=0; i<jsonDoc.length; i++){
 		dates.push(jsonDoc[i]);
 	}
 }
 
 function loadUrl(xmlhttp){
-    alert("before");
 	urlDoc = JSON.parse(xmlhttp.responseText);
-    alert(urlDoc.main[0].dates[0].numstreams);
 }
 
 function requestData(url, callBack)
@@ -71,11 +68,13 @@ function requestData(url, callBack)
 	}
 	// Open the object with the filename
 	xmlhttp.open("GET", url, true);
+	xmlhttp.setRequestHeader('Accept', '*/*');
 	// Send the request
 	xmlhttp.send();
 }
 
 function parseJSON(jsonDoc){
+console.log('hello from line 78');
 		//reset
 		document.getElementById("main").innerHTML = '<div id="overlay"></div>';
 		totalStreams = 0;
@@ -233,11 +232,30 @@ function showSong(index){
 	con.style.marginRight = "10%";
 	overlay.appendChild(con);
 
-	//urlString
-    alert(urlDoc);
-    for (var i = 0; i < urlDoc.length; i++) {
-        }
-
+	
+	var searchterm = tracks[index].url;
+	var tr = urlDoc[searchterm];
+	var dateNo = count(tr);
+	var datesarr = Object.keys(tr);
+//function to create array of x's and y's
+	
+	var datpoints = [];
+	var datasort = [];
+	for(var i=0; i<datesarr.length; i++){
+		var date = datesarr[i];
+		var dateformatted = new Date(date);
+		datasort.push(dateformatted);
+	}
+	datasort.sort(function(a, b) {
+    return a<b ? -1 : a>b ? 1 : 0;
+	});
+	
+	for(var i=0; i<datesarr.length; i++){
+	var date = datesarr[i];
+	var streams = tr[date].num_streams;
+		var point = { x: datasort[i], y: streams };
+		datpoints.push(point);
+	}
 
     var chart = new CanvasJS.Chart(con,
     {
@@ -249,20 +267,7 @@ function showSong(index){
       {
         type: "line",
 
-        dataPoints: [
-        { x: new Date(2012, 00, 1), y: 450 },
-        { x: new Date(2012, 01, 1), y: 414 },
-        { x: new Date(2012, 02, 1), y: 520 },
-        { x: new Date(2012, 03, 1), y: 460 },
-        { x: new Date(2012, 04, 1), y: 450 },
-        { x: new Date(2012, 05, 1), y: 500 },
-        { x: new Date(2012, 06, 1), y: 480 },
-        { x: new Date(2012, 07, 1), y: 480 },
-        { x: new Date(2012, 08, 1), y: 410 },
-        { x: new Date(2012, 09, 1), y: 500 },
-        { x: new Date(2012, 10, 1), y: 480 },
-        { x: new Date(2012, 11, 1), y: 510 }
-        ]
+        dataPoints: datpoints
       }
       ]
     });
@@ -279,3 +284,5 @@ function hideSong(){
     overlay.innerHTML = '';
 
 }
+
+function count(obj) { return Object.keys(obj).length; }
