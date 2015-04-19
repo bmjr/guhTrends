@@ -6,13 +6,13 @@
 		<link rel="stylesheet" href="css/font-awesome.css">
 		<link type="text/css" rel="stylesheet" href="style.css"/>
 		<script type="text/javascript" src="packery.pkgd.min.js"></script>
+		<script type="text/javascript" src="canvasjs.min.js"></script>
 		<script type="text/javascript" src="request.js"></script>
-		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+
 	
 	</head>	
 	<body onload="initialise();">
-
-	<div id="banner">
+	<div id="banner" style="font-family:sans-serif">
 		<div style="display:inline" id="home">
 			<i class="fa fa-spotify"></i>&nbsp&nbspTrendify
 		</div>
@@ -29,11 +29,8 @@
 		</div>
 	</div> 
 	<div id="main">
-	<div id="chart_div">
-		
-		
-	</div>
  		<div id="overlay">
+ 			<div id="chartContainer" style="height:300px; width: 100%; float:right"></div>
  		</div>
 
 	</div>

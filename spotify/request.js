@@ -6,15 +6,17 @@ var hitRank;
 
 
 function initialise(){
+
+	requestData("urlData.json", loadUrl);
+
 	var script = document.createElement('script');
-	script.src = 'http://charts.spotify.com/api/tracks/most_streamed/global/weekly?callback=loadWeeks';
+	script.src = 'http://charts.spotify.com/api/tracks/most_streamed/global/weekly/?callback=loadWeeks';
 	document.head.appendChild(script);
 	
 	var script = document.createElement('script');
 	script.src = 'http://charts.spotify.com/api/tracks/most_streamed/global/weekly/latest?callback=parseJSON';
 	document.head.appendChild(script);
 		
-	
 	var prev = document.getElementById("prev");
 		prev.onclick = function(){
 		alert(dates.length);
@@ -52,7 +54,38 @@ console.log(jsonDoc);
 	}
 }
 
+function loadUrl(xmlhttp){
+	alert("g");
+	var jsonDoc = xmlhttp.responseText;
+	alert(jsonDoc);
+	for (var i = 0; i < jsonDoc.length; i++) {
+			alert(jsonDoc[i]);
+            var track = {
+                streams: jsonDoc[i][1],
+                date: jsonDoc[i][2]
+            };
+			alert(1);
+            //add to the global list of teams
+            //tracks.push(track);
+            //totalStreams = totalStreams + track.streams;
+            
+        }
+}
 
+function requestData(url, callBack)
+{
+	// Create a new XMLHttpRequest object
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange = function() {
+		if (xmlhttp.readyState == 4) {
+			callBack(xmlhttp);
+		}
+	}
+	// Open the object with the filename
+	xmlhttp.open("GET", url, true);
+	// Send the request
+	xmlhttp.send();
+}
 
 function parseJSON(jsonDoc){
 		//reset
@@ -147,6 +180,7 @@ function showSong(index){
     cross.style.margin="10px 20px";
     cross.style.cursor="pointer";
     cross.onclick = function(){hideSong()};
+    cross.style.clear = "right";
 
     var container = document.createElement("div");
   
@@ -199,15 +233,57 @@ function showSong(index){
     
     setTimeout(function(){
     overlay.appendChild(cross);
-    overlay.appendChild(container);} , 500);
+    overlay.appendChild(container)
 
-    
+	var con = document.createElement("div");
+	con.id = "chartContainer";
+	con.style.height= "300px"; 
+	con.style.width = "50%";
+	con.style.clear = "left";
+	con.style.float = "right";
+	con.style.marginTop = "-13%";
+	con.style.marginRight = "10%";
+	overlay.appendChild(con);
+
+	//urlString
+
+    var chart = new CanvasJS.Chart(con,
+    {
+
+      title:{
+      text: "Streams per Week (Popularity)"
+      },
+       data: [
+      {
+        type: "line",
+
+        dataPoints: [
+        { x: new Date(2012, 00, 1), y: 450 },
+        { x: new Date(2012, 01, 1), y: 414 },
+        { x: new Date(2012, 02, 1), y: 520 },
+        { x: new Date(2012, 03, 1), y: 460 },
+        { x: new Date(2012, 04, 1), y: 450 },
+        { x: new Date(2012, 05, 1), y: 500 },
+        { x: new Date(2012, 06, 1), y: 480 },
+        { x: new Date(2012, 07, 1), y: 480 },
+        { x: new Date(2012, 08, 1), y: 410 },
+        { x: new Date(2012, 09, 1), y: 500 },
+        { x: new Date(2012, 10, 1), y: 480 },
+        { x: new Date(2012, 11, 1), y: 510 }
+        ]
+      }
+      ]
+    });
+
+    chart.render();
+
+;} , 500);
 
 } 
 
 function hideSong(){
     var overlay = document.getElementById("overlayfront");
     overlay.id = "overlay";
-    overlay.innerHTML = "";
+    overlay.innerHTML = '';
 
 }
