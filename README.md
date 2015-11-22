@@ -7,4 +7,6 @@ Using python to access the spotify api and convert the data to json, we then vis
 
 The more popular a track, the larger the tile of it's album art.
 
+When you click on a tile, an overlay appears with some statistics and an embedded spotify player.
+
 ![screenshot](screenshot.png)
