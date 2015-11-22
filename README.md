@@ -1,4 +1,6 @@
 # guhTrends
-spotify visualisation of top trending songs currently on spotify
+visualisation of top trending songs currently on spotify, made at Great Uni Hack in spring 2015
 
-Made at Great Uni Hack in spring 2015
+Working in a team of 3, we had 36 hours to come up with an idea then make it!
+
+Using python to access the spotify api, then converting the data to json - we then visualised using some JavaScript wizardry, and a framework called [packery](http://packery.metafizzy.co/)
